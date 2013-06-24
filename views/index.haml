@@ -1,0 +1,79 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xmlns:og" => "http://opengraphprotocol.org/schema/", "xmlns:fb" => "http://www.facebook.com/2008/fbml" }<
+  %head
+    %meta{:content => "text/html;charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Photo Share - Cloudinary and PubNub demo
+    %script{:type => "text/javascript", :src => "/js/jquery.min.js"}
+    %script{:type => "text/javascript", :src => "/js/jquery.ui.widget.js"}
+    %script{:type => "text/javascript", :src => "/js/jquery.iframe-transport.js"}  
+    %script{:type => "text/javascript", :src => "/js/jquery.fileupload.js"}
+    %script{:type => "text/javascript", :src => "/js/jquery.cloudinary.js"}
+    %script{:type => "text/javascript", :src => "http://pubnub.s3.amazonaws.com/pubnub-3.1.min.js"}
+    = cloudinary_js_config      
+    :javascript     
+      $(function() {
+        var channel = '#{@channel}';
+        var pubnub = PUBNUB.init({ subscribe_key : '#{@subscribe_key}' });
+      
+        function show_message(message) {
+          console.log(message); 
+          var li = $('<li></li>').addClass('message');
+          $(li).append(message.user);
+          $(li).append(message.message);
+          $(li).append($.cloudinary.image(message.cloudinary_photo_id, 
+            {  crop: 'fill', width: 150, height: 100, gravity: 'face' }));
+          $('.stream').append(li);
+        }
+        
+        pubnub.subscribe({
+          channel : channel,
+          callback : show_message 
+        });
+
+        pubnub.history({
+          channel  : channel,
+          limit    : 10,
+          callback : function(history) { $.each(history, function() { show_message(this); })}
+        });
+        
+        $('.cloudinary-fileupload').bind('cloudinarydone', function(e, data) {
+          $('.preview').html(
+            $.cloudinary.image(data.result.public_id, 
+              { format: data.result.format, version: data.result.version, 
+                crop: 'fill', width: 150, height: 100, gravity: 'face' })
+          );    
+            
+        });
+        $('.share_form').submit(function() {
+          $.ajax({
+            type: "POST",
+            url: $(this).attr('action'),
+            dataType: 'json',
+            data: $(this).serialize(),
+            success: function(result) {
+              console.log(result);
+            }
+          });
+          return false;
+        });
+      });
+      
+      
+  %body
+    
+    #header
+    
+    .upload_section
+      .preview
+      %form.share_form{:action => "/share", :method => "POST"}
+        = cl_image_upload_tag(:photo_id)
+        %input{:type => "text", :name => "user", :value => "Anonymous", :id => "user_field"}
+        %input{:type => "text", :name => "message", :value => "Look at this", :id => "message_field"}
+        %input{:type => "submit", :value => "Share"}
+         
+    .stream_section
+      %h2 Share stream
+      %ul.stream
+      
+    
+    
