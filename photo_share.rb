@@ -15,7 +15,7 @@ PUBNUB_PUBLISH_KEY = ENV['PUBNUB_PUBLISH_KEY'] # Something like: 'pub-c-xxxxxxxx
 PUBNUB_SUBSCRIBE_KEY = ENV['PUBNUB_SUBSCRIBE_KEY'] # Something like: 'sub-c-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 
 # A name of the PubNub channel to publish and subscribe to.
-PUBNUB_CHANNEL = 'cloudinary_photo_share'
+PUBNUB_CHANNEL = 'cloudinary_photo_share_dev'
 
 # Initialize view helpers
 helpers do

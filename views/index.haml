@@ -21,7 +21,7 @@
     
     -# Cloudinary's transformation of adding a watermark
     -# Note: Assuming you uploaded an image with the public ID of 'logos_watermark' to your Cloudinary's account
-    - watermark = { overlay: 'logos_watermark', width: 0.7, flags: 'relative', opacity: 50 }
+    - watermark = { overlay: 'logos_watermark', width: 0.7, flags: 'relative', opacity: 40, gravity: 'north', y: 20 }
 
     -# Cloudinary's incoming transformation of limiting to 1200x1200 and adding a watermark
     - incoming_transformation = [{ width: 1200, height: 1200, crop: 'limit'}, watermark]     
