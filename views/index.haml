@@ -12,8 +12,8 @@
     %script{:type => "text/javascript", :src => "/js/jquery.fileupload.js"}
     %script{:type => "text/javascript", :src => "/js/jquery.cloudinary.js"}
     %script{:type => "text/javascript", :src => "http://pubnub.s3.amazonaws.com/pubnub-3.1.min.js"}
-      
     %link{:href => "/stylesheets/photo_share.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}
+    %meta{:name => "viewport", :content => "initial-scale=0.48, maximum-scale=4"}    
     
     -# Inserting Javascript code with Cloudinary's configuration of your account.
     -# Note: Assuming you have the CLOUDINARY_URL environment variable defined in your server environment.
@@ -99,8 +99,17 @@
 
         // Update the progress bar.
         $('.cloudinary-fileupload').bind('fileuploadprogress', function(e, data) {
-          $('.progress_bar .completed').css('width', Math.round((data.loaded * 100.0) / data.total) + '%');    
+          var percent = Math.round((data.loaded * 100.0) / data.total);
+          $('.progress_bar .completed').css('width', percent + '%');
+          if (percent == 100) {
+            $('.upload_section').removeClass('uploading').addClass('processing');
+          }    
         });
+
+        // Handle failed uploading (e.g., not a valid image)
+        $('.cloudinary-fileupload').bind('fileuploadfail', function(e, data) {
+            $('.upload_section').removeClass('uploading processing');        
+        });        
             
         // When uploading is completed, show the 4 thumbnails and photo sharing form.    
         $('.cloudinary-fileupload').bind('cloudinarydone', function(e, data) {
@@ -111,7 +120,7 @@
                 $.extend({ format: data.result.format, version: data.result.version }, transformation))               
             );
           });             
-          $('.upload_section').removeClass('uploading').addClass('uploaded');
+          $('.upload_section').removeClass('uploading processing').addClass('uploaded');
         });
 
         // Define a drag & drop area and update its look & feel while dragging.
@@ -169,7 +178,8 @@
                 .upload_button_holder  
                   %input{:type => "submit", :value => "Select Photo", :class => "select_files"}
                   -# Cloudinary's direct image uploading tag with incoming and eager transformations. Signature is generated on the server side.     
-                  = cl_image_upload_tag(:photo_id, :transformation => incoming_transformation, :eager => transformations.values + [large_transformation])
+                  = cl_image_upload_tag(:photo_id, :resource_type => :image,
+                      :transformation => incoming_transformation, :eager => transformations.values + [large_transformation])
                   
             %a{:href => "#", :class => "details_link"} How does it work?
             
@@ -178,6 +188,11 @@
               %span Uploading...
               .progress_bar
                 .completed
+            
+            .processing_progress
+              %span Processing...
+              %img{:src => "/ajax-loader.gif", :width => 32, :height => 32, :alt => "Processing..."}
+              
             
             -# Photo sharing form  
             .share_details_section

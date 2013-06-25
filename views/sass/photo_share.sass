@@ -37,7 +37,7 @@ body, input
   margin: 10px 0
   height: 127px
   padding-top: 20px       
-  .share_details_section, .upload_progress
+  .share_details_section, .upload_progress, .processing_progress
     display: none
   &.uploading
     padding-top: 40px
@@ -46,6 +46,13 @@ body, input
       display: none     
     .upload_progress
       display: block      
+  &.processing
+    padding-top: 40px
+    height: 107px
+    .drag_area, .details_link
+      display: none     
+    .processing_progress
+      display: block        
   &.uploaded
     padding-top: 15px
     height: 252px
@@ -56,28 +63,28 @@ body, input
   
 
 .drag_area
-  width: 431px
+  width: 531px
   height: 75px
   border: 4px dashed #ccc
   margin: 0 auto
   
   
   .drag_inner
-    width: 340px
-    margin: 24px auto 0 auto
-    height: 28px
+    width: 440px
+    margin: 19px auto 0 auto
+    height: 38px
     span
       float: left
       display: inline-block
       font-weight: bold
       font-size: 18px
       color: #bbb
-      line-height: 24px
+      line-height: 34px
       &.small
         float: none
         font-weight: normal
         font-size: 14px
-        padding: 0 38px
+        padding: 0 53px
         line-height: 24px
   &.in
     border-color: #84a788
@@ -87,17 +94,18 @@ body, input
   .upload_button_holder
     position: relative
     display: inline-block   
-    height: 28px
+    height: 38px
     input[type=submit]
       border: 1px solid #bbbbbb
-      height: 28px
-      line-height: 26px
+      height: 38px
+      line-height: 36px
       font-weight: bold
       color: #333333
-      font-size: 14px  
+      font-size: 18px  
       font-family: Helvetica, Arial, sans-serif
       background-color: #fff
-      padding: 0 20px
+      padding: 0
+      width: 180px
       border-radius: 6px
       -moz-border-radius: 6px
       -webkit-border-radius: 6px            
@@ -126,8 +134,8 @@ body, input
       position: absolute
       top: 0
       left: 0
-      width: 120px
-      height: 28px
+      width: 180px
+      height: 38px
       margin: 0
       padding: 0
     .cloudinary-fileupload
@@ -163,7 +171,11 @@ body, input
       display: block
       margin: 5px auto
 
-.upload_progress    
+.processing_progress
+  img
+    margin: 0 auto
+    display: block
+.upload_progress, .processing_progress
   span
     display: block
     margin: 0 auto
@@ -172,6 +184,8 @@ body, input
     text-align: center
     color: #ccc
     padding-bottom: 5px
+
+.upload_progress    
     
   .progress_bar
     display: block
@@ -341,3 +355,4 @@ body, input
     margin: 10px 0
     color: #666
     
+
