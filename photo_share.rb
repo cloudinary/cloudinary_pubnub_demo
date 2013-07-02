@@ -24,6 +24,11 @@ helpers do
   def config() nil end  
 end
 
+# Allow embedding in an iframe for demo purposes
+configure do
+  set :protection, :except => :frame_options
+end
+
 # Converting SASS files to CSS
 get '/stylesheets/*.css' do
   content_type 'text/css', :charset => 'utf-8'
