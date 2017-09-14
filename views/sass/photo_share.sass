@@ -1,0 +1,358 @@
+html, body
+  margin: 0
+  padding: 0
+
+body, input
+  font-family: Helvetica, Arial, Verdana, sans-serif
+  color: #222
+
+
+#header
+  height: 50px
+  box-shadow: 0px 2px 2px #aaa
+  -webkit-box-shadow: 0px 2px 2px #aaa
+  -moz-box-shadow: 0px 2px 2px #aaa  
+  .inner
+    width: 640px
+    margin: 0 auto 
+    padding: 10px 0
+  .pubnub_logo
+    float: right
+    margin-top: 3px
+  .cloudinary_logo
+    float: left
+  h1
+    font-size: 18px
+    font-weight: bold
+    float: left
+    margin: 5px 0 0 90px
+    color: #666
+    
+#content
+  width: 640px
+  margin: 0 auto
+  position: relative
+
+.upload_section
+  margin: 10px 0
+  height: 127px
+  padding-top: 20px       
+  .share_details_section, .upload_progress, .processing_progress
+    display: none
+  &.uploading
+    padding-top: 40px
+    height: 107px
+    .drag_area, .details_link
+      display: none     
+    .upload_progress
+      display: block      
+  &.processing
+    padding-top: 40px
+    height: 107px
+    .drag_area, .details_link
+      display: none     
+    .processing_progress
+      display: block        
+  &.uploaded
+    padding-top: 15px
+    height: 252px
+    .share_details_section
+      display: block
+    .drag_area, .details_link
+      display: none            
+  
+
+.drag_area
+  width: 531px
+  height: 75px
+  border: 4px dashed #ccc
+  margin: 0 auto
+  
+  
+  .drag_inner
+    width: 440px
+    margin: 19px auto 0 auto
+    height: 38px
+    span
+      float: left
+      display: inline-block
+      font-weight: bold
+      font-size: 18px
+      color: #bbb
+      line-height: 34px
+      &.small
+        float: none
+        font-weight: normal
+        font-size: 14px
+        padding: 0 53px
+        line-height: 24px
+  &.in
+    border-color: #84a788
+    .drag_inner span
+      color: #84a788
+      
+  .upload_button_holder
+    position: relative
+    display: inline-block   
+    height: 38px
+    input[type=submit]
+      border: 1px solid #bbbbbb
+      height: 38px
+      line-height: 36px
+      font-weight: bold
+      color: #333333
+      font-size: 18px  
+      font-family: Helvetica, Arial, sans-serif
+      background-color: #fff
+      padding: 0
+      width: 180px
+      border-radius: 6px
+      -moz-border-radius: 6px
+      -webkit-border-radius: 6px            
+      background-image: linear-gradient(bottom, rgb(244,244,244) 28%, rgb(254,254,254) 64%)
+      background-image: -o-linear-gradient(bottom, rgb(244,244,244) 28%, rgb(254,254,254) 64%)
+      background-image: -moz-linear-gradient(bottom, rgb(244,244,244) 28%, rgb(254,254,254) 64%)
+      background-image: -webkit-linear-gradient(bottom, rgb(244,244,244) 28%, rgb(254,254,254) 64%)
+      background-image: -ms-linear-gradient(bottom, rgb(244,244,244) 28%, rgb(254,254,254) 64%)
+      background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.28, rgb(244,244,244)),color-stop(0.64, rgb(254,254,254)))
+      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#f4f4f4', EndColorStr='#fefefe')"            
+      margin: 0                       
+      cursor: pointer
+                 
+    &:hover
+      input[type=submit]           
+        background-image: linear-gradient(bottom, rgb(234,234,234) 28%, rgb(244,244,244) 64%)
+        background-image: -o-linear-gradient(bottom, rgb(234,234,234) 28%, rgb(244,244,244) 64%)
+        background-image: -moz-linear-gradient(bottom, rgb(234,234,234) 28%, rgb(244,244,244) 64%)
+        background-image: -webkit-linear-gradient(bottom, rgb(234,234,234) 28%, rgb(244,244,244) 64%)
+        background-image: -ms-linear-gradient(bottom, rgb(234,234,234) 28%, rgb(244,244,244) 64%)                
+        background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.28, rgb(234,234,234)),color-stop(0.64, rgb(244,244,244)))                    
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#eaeaea', EndColorStr='#f4f4f4')"            
+        
+    input
+      cursor: pointer
+      position: absolute
+      top: 0
+      left: 0
+      width: 180px
+      height: 38px
+      margin: 0
+      padding: 0
+    .cloudinary-fileupload
+      opacity: 0
+      filter: alpha(opacity=0)
+
+.kind_selection
+  list-style: none
+  margin: 0 0 0 5px
+  padding: 0  
+  &:after
+    clear: both
+    content: ''
+    display: block
+  li
+    float: left
+    margin: 0 4px
+    width: 150px
+    cursor: pointer
+    .image
+      display: block
+      width: 150px
+      height: 100px
+      margin: 5px 0
+    .name
+      display: block
+      font-size: 11px
+      color: #aaa
+      text-align: center
+      
+    input[type=radio]
+      text-align: center
+      display: block
+      margin: 5px auto
+
+.processing_progress
+  img
+    margin: 0 auto
+    display: block
+.upload_progress, .processing_progress
+  span
+    display: block
+    margin: 0 auto
+    font-size: 11px
+    width: 80px
+    text-align: center
+    color: #ccc
+    padding-bottom: 5px
+
+.upload_progress    
+    
+  .progress_bar
+    display: block
+    width: 240px
+    height: 24px
+    border-radius: 6px
+    -moz-border-radius: 6px
+    -webkit-border-radius: 6px
+    border: 1px solid #acc1dc            
+    font-size: 1px 
+    line-height: 1px
+    position: relative
+    margin: 0 auto
+    .completed
+      border-radius: 5px
+      -moz-border-radius: 5px
+      -webkit-border-radius: 5px
+      width: 0
+      height: 24px
+      font-size: 1px 
+      line-height: 1px
+      background-image: linear-gradient(bottom, rgb(107,145,192) 0%, rgb(212,231,255) 63%)
+      background-image: -o-linear-gradient(bottom, rgb(107,145,192) 0%, rgb(212,231,255) 63%)
+      background-image: -moz-linear-gradient(bottom, rgb(107,145,192) 0%, rgb(212,231,255) 63%)
+      background-image: -webkit-linear-gradient(bottom, rgb(107,145,192) 0%, rgb(212,231,255) 63%)
+      background-image: -ms-linear-gradient(bottom, rgb(107,145,192) 0%, rgb(212,231,255) 63%)
+      background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(107,145,192)),color-stop(0.63, rgb(212,231,255)))              
+      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#6b91c0', EndColorStr='#d4e7ff')"            
+
+.share_details_section
+  margin: 0 auto
+  .fields
+    margin: 20px 0 0 20px
+    float: left
+    .field
+      margin-bottom: 10px
+    label
+      font-size: 14px
+      color: #999
+      display: inline-block
+      width: 80px  
+  input[type=text]
+    font-size: 16px
+    color: #666
+    padding: 2px 4px
+    border: 1px solid #bbb
+    width: 320px
+  input[type=submit]
+    margin: 33px 20px 0 0
+    float: right  
+    border: 1px solid #034b82
+    height: 38px
+    line-height: 36px
+    font-weight: bold
+    color: #f5f4f4
+    font-size: 18px  
+    font-family: Helvetica, Arial, sans-serif
+    background-color: #fff
+    padding: 0 40px
+    border-radius: 6px
+    -moz-border-radius: 6px
+    -webkit-border-radius: 6px            
+    background-image: linear-gradient(top, rgb(15,111,184) 0%, rgb(8,83,140) 50%)
+    background-image: -o-linear-gradient(top, rgb(15,111,184) 0%, rgb(8,83,140) 50%)
+    background-image: -moz-linear-gradient(top, rgb(15,111,184) 0%, rgb(8,83,140) 50%)
+    background-image: -webkit-linear-gradient(top, rgb(15,111,184) 0%, rgb(8,83,140) 50%)
+    background-image: -ms-linear-gradient(top, rgb(15,111,184) 0%, rgb(8,83,140) 50%)
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(15,111,184)), color-stop(0.5, rgb(8,83,140)))
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#0f6fb8', EndColorStr='#08538c')"            
+    cursor: pointer
+                 
+    &:hover
+      background-image: linear-gradient(top, rgb(5,101,174) 0%, rgb(1,73,130) 50%)
+      background-image: -o-linear-gradient(top, rgb(5,101,174) 0%, rgb(1,73,130) 50%)
+      background-image: -moz-linear-gradient(top, rgb(5,101,174) 0%, rgb(1,73,130) 50%)
+      background-image: -webkit-linear-gradient(top, rgb(5,101,174) 0%, rgb(1,73,130) 50%)
+      background-image: -ms-linear-gradient(top, rgb(5,101,174) 0%, rgb(1,73,130) 50%)
+      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(5,101,174)), color-stop(0.5, rgb(1,73,130)))
+      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#0565ae', EndColorStr='#014982')"            
+        
+
+  &:after
+    clear: both
+    content: ''
+    display: block      
+
+.stream_section
+  h2
+    border-bottom: 1px solid #006bc6
+    margin: 0
+    padding: 0
+    color: #006bc6
+    font-size: 18px
+  .stream
+    list-style: none
+    margin: 0
+    padding: 0
+    .photo_item
+      border-bottom: 1px solid #85aed2
+      padding: 10px
+      margin: 7px 0
+      position: relative
+      height: 100px
+      .user
+        display: block
+        font-size: 16px
+        font-weight: bold
+        color: #666
+        margin-top: 5px
+      abbr
+        position: absolute
+        top: 10px
+        right: 10px
+        font-size: 12px
+        color: #999
+      .message
+        display: block
+        font-size: 14px
+        margin-top: 10px
+        color: #444    
+      .view_link
+        display: block
+        font-size: 12px
+        color: #006bc6
+        font-weight: bold
+        text-decoration: underline    
+        margin-top: 10px
+      img
+        float: left
+        width: 150px
+        height: 100px
+        margin-right: 30px
+      &:after
+        clear: both
+        content: ''
+        display: block      
+            
+.details_link
+  display: block
+  margin: 0 auto
+  text-align: center
+  font-size: 12px
+  color: #333
+  font-weight: bold
+  margin-top: 12px    
+
+.technical_details
+  display: none
+  position: absolute
+  top: 0px
+  left: 20px
+  width: 560px
+  padding: 20px
+  border: 3px solid #999
+  background-color: #fff
+  .close
+    text-align: center
+    color: #222
+    font-size: 12px
+    font-weight: bold
+    display: block
+  ol
+    margin: 0
+    padding: 0 0 0 20px
+  li
+    font-size: 14px
+    margin: 10px 0
+    color: #666
+    
+
